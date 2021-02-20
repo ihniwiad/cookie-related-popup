@@ -138,6 +138,7 @@ var BSX_UTILS = ( function( $ ) {
 // COOKIE RELATED ELEMENT
 
 /*
+<!-- if using remote trigger use aria-controls and aria-expanded together (trigger) with aria-labeledby (popup) -->
 <div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-warning text-black d-none" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-fn-options="{ cookieName: 'privacyBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none' }">
     <div class="container py-3">
         <div class="mb-2">
@@ -185,6 +186,13 @@ var BSX_UTILS = ( function( $ ) {
 
             var $elem = $( this );
 
+            // set trigger aria-expanded
+            var id = $elem.attr( 'id' );
+            var $triggers = Utils.$functionElems.filter( '[aria-controls="' + id + '"]' );
+            if ( $triggers.length > 0 ) {
+                $triggers.ariaExpanded( true );
+            }
+
             if ( options.focusOnOpen ) {
                 if ( CookieRelatedElem.$focussedElem === null ) {
                     CookieRelatedElem.$focussedElem = $( Utils.$document.activeElement );
@@ -207,6 +215,13 @@ var BSX_UTILS = ( function( $ ) {
         $.fn._hideElem = function() {
 
             var $elem = $( this );
+
+            // set trigger aria-expanded
+            var id = $elem.attr( 'id' );
+            var $triggers = Utils.$functionElems.filter( '[aria-controls="' + id + '"]' );
+            if ( $triggers.length > 0 ) {
+                $triggers.ariaExpanded( false );
+            }
             
             if ( !! options.hiddenClass ) {
                 $elem.addClass( options.hiddenClass );
@@ -319,11 +334,11 @@ var BSX_UTILS = ( function( $ ) {
 /*
 
 <!-- button to show consent popup -->
-<button class="btn btn-primary" data-fn="data-processing-popup-trigger">Show consent banner</button>
+<button class="btn btn-primary" id="consent-popup-trigger" aria-controls="consent-popup" aria-expanded="false" data-fn="data-processing-popup-trigger">Show consent banner</button>
 
 
 <!-- consent popup -->      
-<div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-secondary d-none" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-tg="data-processing-popup" data-fn-options="{ cookieName: 'dataProcessingConsentBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none', remoteOpenable: true }">
+<div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-secondary d-none" id="consent-popup" aria-labeledby="consent-popup-trigger" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-tg="data-processing-popup" data-fn-options="{ cookieName: 'dataProcessingConsentBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none', remoteOpenable: true }">
             
     <div class="container py-3">
         

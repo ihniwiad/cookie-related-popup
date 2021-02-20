@@ -20,13 +20,14 @@
 
 
       <!-- button to show consent popup -->
-      <button class="btn btn-primary" data-fn="data-processing-popup-trigger">Show consent banner</button>
+      <!-- TODO: add aria-controls="consent-popup" aria-expanded="false" -->
+      <button class="btn btn-primary" id="consent-popup-trigger" aria-controls="consent-popup" aria-expanded="false" data-fn="data-processing-popup-trigger">Show consent banner</button>
 
     </div>
 
 
     <!-- consent popup -->    
-    <div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-secondary d-none" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-tg="data-processing-popup" data-fn-options="{ cookieName: 'dataProcessingConsentBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none', remoteOpenable: true }">
+    <div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-secondary d-none" id="consent-popup" aria-labeledby="consent-popup-trigger" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-tg="data-processing-popup" data-fn-options="{ cookieName: 'dataProcessingConsentBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none', remoteOpenable: true }">
           
       <div class="container py-3">
         

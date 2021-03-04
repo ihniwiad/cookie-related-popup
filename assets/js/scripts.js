@@ -3,8 +3,6 @@ var BSX_UTILS = ( function( $ ) {
     var Utils = {
         $document:      $( document ),
         $window:        $( window ),
-        $body:          $( 'body' ),
-        $scrollRoot:    $( 'html, body'),
 
         $functionElems: null,
         $targetElems: null,
@@ -22,9 +20,7 @@ var BSX_UTILS = ( function( $ ) {
         attributes: {
             functionElement:    'data-fn',
             targetElement:      'data-tg',
-            target:             'data-fn-target',
             options:            'data-fn-options',
-            callback:           'data-fn-callback'
         }
         
     };
@@ -53,32 +49,6 @@ var BSX_UTILS = ( function( $ ) {
             return value;
         }
         return _convertType( $( this ).attr( 'aria-expanded' ) );
-    };
-
-    // aria
-    $.fn.aria = function( ariaName, value ) {
-        if ( typeof value !== 'undefined' ) {
-            $( this ).attr( 'aria-' + ariaName, value );
-            return value;
-        }
-        else {
-            return _convertType( $( this ).attr( 'aria-' + ariaName ) );
-        }
-    };
-
-    // hidden
-    $.fn.hidden = function( value ) {
-        if ( typeof value !== 'undefined' ) {
-            if ( value == true ) {
-                $( this ).attr( 'hidden', true );
-            }
-            else {
-                $( this ).removeAttr( 'hidden' );
-            }
-        }
-        else {
-            return _convertType( $( this ).attr( hidden ) );
-        }
     };
 
     // get options from attribute
@@ -137,21 +107,6 @@ var BSX_UTILS = ( function( $ ) {
 
 // COOKIE RELATED ELEMENT
 
-/*
-<!-- if using remote trigger use aria-controls and aria-expanded together (trigger) with aria-labeledby (popup) -->
-<div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-warning text-black d-none" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-fn-options="{ cookieName: 'privacyBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none' }">
-    <div class="container py-3">
-        <div class="mb-2">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
-        </div>
-        <div class="text-center">
-            <button class="btn btn-success" data-fn="cookie-related-elem-close"><span>Accept</span><i class="fa fa-check" aria-hidden="true"></i></button><button class="btn btn-secondary ml-2" data-fn="cookie-related-elem-close"><span>Close</span><i class="fa fa-close" aria-hidden="true"></i></button>
-        </div>
-    </div>
-</div>
-*/
-
-
 ( function( $, Utils ) {
 
     var CookieRelatedElem = {};
@@ -168,14 +123,6 @@ var BSX_UTILS = ( function( $ ) {
         };
 
         options = $.extend( {}, defaults, options );
-        /*
-        options = { 
-            cookieName: 'privacyBannerHidden', 
-            cookieExpiresDays: 365, 
-            hiddenCookieValue: '1', 
-            hiddenClass: 'd-none'
-        };
-        */
 
         var $elem = $( elem );
         if ( options.focusOnOpen ) {
@@ -328,75 +275,6 @@ var BSX_UTILS = ( function( $ ) {
 
 
 // DATA PROCESSING CONSENT
-
-// TODO: add cookie list to remove existing cookies after disallow
-
-/*
-
-<!-- button to show consent popup -->
-<button class="btn btn-primary" id="consent-popup-trigger" aria-controls="consent-popup" aria-expanded="false" data-fn="data-processing-popup-trigger">Show consent banner</button>
-
-
-<!-- consent popup -->      
-<div class="fixed-banner fixed-banner-bottom fixed-banner-closable bg-secondary d-none" id="consent-popup" aria-labeledby="consent-popup-trigger" tabindex="-1" role="dialog" hidden data-fn="cookie-related-elem" data-tg="data-processing-popup" data-fn-options="{ cookieName: 'dataProcessingConsentBannerHidden', cookieExpiresDays: 365, hiddenCookieValue: '1', hiddenClass: 'd-none', remoteOpenable: true }">
-            
-    <div class="container py-3">
-        
-        <form data-fn="data-processing-form" data-fn-options="{ cookieName: 'dataProcessingConsent', cookieExpiresDays: 365, categoryInputSelector: '[data-g-tg=category-input]' }">
-            <div class="form-row align-items-center">
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="data-processing-consent-0-0" value="analytics" data-g-tg="category-input">
-                    <label class="form-check-label" for="data-processing-consent-0-0">Analytics</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="data-processing-consent-1-0" value="other-category" data-g-tg="category-input">
-                    <label class="form-check-label" for="data-processing-consent-1-0">Other category</label>
-                </div>
-
-                <div class="col-auto">
-                    <button class="btn btn-outline-primary btn-sm" type="submit" data-fn="cookie-related-elem-close" data-g-fn="save">Save</button>
-                </div>
-
-                <div class="col-auto">
-                    <button class="btn btn-primary btn-sm" data-fn="cookie-related-elem-close" data-g-fn="allow-all">Allow all</button>
-                </div>
-
-            </div>
-        </form>
-        
-    </div>
-    
-</div>
-
-
-<!-- hidden scripts -->
-<div aria-hidden="true" data-tg="data-processing-consent-content">
-
-    <script type="text/x-template" data-category="analytics" data-position="header" src="http://localhost/tmp/dev-testing/testing.js"></script>
-    <script type="text/x-template" data-category="analytics" data-position="header">
-        console.log( 'hello from inline script' );
-    </script>
-    
-    <script type="text/x-template" data-category="other-category" src="http://localhost/tmp/dev-testing/testing-2.js"></script>
-    <script type="text/x-template" data-category="other-category">
-        console.log( 'hello from inline script 2' );
-    </script>
-    
-</div>
-
-
-<!-- single cat consent trigger -->
-<button class="btn btn-primary test-hello" data-fn="data-processing-cat-consent-trigger" data-fn-options="{ cat: 'other-category', consentClass: 'd-none', nonConsentClass: 'test-hello' }">Allow “Other category”</button>
-
-<!-- wrapped single cat consent trigger -->
-<div data-g-tg="consent-trigger-wrapper">
-    <button class="btn btn-primary test-hello" data-fn="data-processing-cat-consent-trigger" data-fn-options="{ cat: 'other-category', consentClass: 'd-none', nonConsentClass: 'test-hello', classTarget: '[data-g-tg=consent-trigger-wrapper]' }">Allow “Other category”</button>
-</div>
-
-*/
-
 
 ( function( $, Utils ) {
 
@@ -647,24 +525,22 @@ var BSX_UTILS = ( function( $ ) {
     function applyCategory( category ) {
         
         // find related templates
-        var $relatedContents = Utils.$targetElems.filter( '[data-tg="data-processing-consent-content"]' ).find( '[data-category="' + category + '"]' );
+        var $relatedContents = Utils.$targetElems.filter( '[data-tg="data-processing-consent-content"][data-category="' + category + '"]' );
         
         // activate related templates
         $relatedContents.each( function() {
             var $elem = $( this );
-            if ( $elem[0].nodeName.toLowerCase() == 'script' ) {
-                if ( $elem.attr( 'src' ) !== undefined ) {
-                    // is src script
 
-                    // append src script
-                    appendSrcScript( $elem.attr( 'src' ) );
-                }
-                else {
-                    // is inline script
-                    
-                    // append inline script
-                    appendInlineScript( $elem.html() );
-                }
+            if ( typeof $elem.attr( 'data-script-src' ) !== 'undefined' ) {
+                appendSrcScript( $elem.attr( 'data-script-src' ) );
+            }
+            else if ( typeof $elem.attr( 'data-script-content' ) !== 'undefined' ) {
+                // console.log( 'append inline script \n' + decodeURIComponent( $elem.attr( 'data-script-content' ) ) )
+                appendInlineScript( decodeURIComponent( $elem.attr( 'data-script-content' ) ) );
+            }
+            else if ( typeof $elem.attr( 'data-html' ) !== 'undefined' ) {
+                // console.log( 'append html \n' + decodeURIComponent( $elem.attr( 'data-html' ) ) )
+                appendHtml( $elem, decodeURIComponent( $elem.attr( 'data-html' ) ) );
             }
         } );
         
@@ -682,6 +558,10 @@ var BSX_UTILS = ( function( $ ) {
         var script = document.createElement( 'script' );
         script.textContent = textContent;
         document[ currentAppendTo ].appendChild( script );
+    }
+    
+    function appendHtml( elem, htmlContent ) {
+        $( elem ).after( htmlContent );
     }
     
 } )( jQuery, BSX_UTILS );

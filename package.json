@@ -1,0 +1,18 @@
+{
+  "name": "cookie-related-popup",
+  "version": "1.0.0",
+  "description": "An example popup for data processing consent (cookie consent).",
+  "main": "scripts.js",
+  "scripts": {
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ihniwiad",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0"
+  }
+}

@@ -43,7 +43,8 @@ const publishFolderDelete = ( cb ) => {
         ;
     }
     else {
-        // do nothing
+        // log note, do nothing
+        console.log( 'Note: Nothing deleted since publish configuration empty.' );
     }
 
     cb();

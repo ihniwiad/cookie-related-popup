@@ -44,7 +44,7 @@ $consent_data = array(
 );
 
 
-class ConsentPopupManager {
+class Consent_Popup_Manager {
 
   public $data;
 
@@ -102,17 +102,10 @@ class ConsentPopupManager {
     }
   }
 
-  public function printPopupTrigger() {
-
-    echo '<!-- consent checkboxes -->';
-
-    foreach ( $this->data as $cat ) {
-      if ( isset( $cat[ 'cat' ] ) && isset( $cat[ 'cat_label' ] ) && isset( $cat[ 'items' ] ) && sizeof( $cat[ 'items' ] ) > 0 ) {
-        echo 
-          '<!-- button showing consent popup -->
-            <button class="avo-btn btn btn-primary" id="consent-popup-trigger" aria-haspopup="true" aria-controls="consent-popup" aria-expanded="false" data-fn="data-processing-popup-trigger">Cookie-Einstellungen ansehen/ändern</button>';
-      }
-    }
+  public static function printPopupTrigger() {
+    echo 
+      '<!-- button showing consent popup -->
+        <button class="btn btn-primary" id="consent-popup-trigger" aria-haspopup="true" aria-controls="consent-popup" aria-expanded="false" data-fn="data-processing-popup-trigger">Cookie-Einstellungen ansehen/ändern</button>';
   }
 
   public function printHtml( $cat, $html ) {
@@ -127,12 +120,12 @@ class ConsentPopupManager {
 }
 
 
-$consent_popup_manager = new ConsentPopupManager( $consent_data );
+$consent_popup_manager = new Consent_Popup_Manager( $consent_data );
 
 
 /*
   <!-- button showing consent popup -->
-  <button class="avo-btn btn btn-primary" id="consent-popup-trigger" aria-haspopup="true" aria-controls="consent-popup" aria-expanded="false" data-fn="data-processing-popup-trigger">Cookie-Einstellungen ansehen/ändern</button>
+  <button class="btn btn-primary" id="consent-popup-trigger" aria-haspopup="true" aria-controls="consent-popup" aria-expanded="false" data-fn="data-processing-popup-trigger">Cookie-Einstellungen ansehen/ändern</button>
 */
 ?>
 <!DOCTYPE html>

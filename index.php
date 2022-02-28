@@ -17,7 +17,7 @@ $consent_data = array(
       ),
       array(
         'type' => 'html',
-        'code' => '<div class="container py-3">Hello, im consent-related <span style="background: #fc3;">HTML-content</span>.</div>'
+        'code' => '<div class="container py-3">Hello, I’m consent-related <span style="background: #fc3;">HTML-content</span>.</div>'
       )
     )
   ),
